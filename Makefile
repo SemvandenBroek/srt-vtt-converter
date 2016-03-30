@@ -1,3 +1,3 @@
 CC=gcc
 
-default: $(CC) -o main.cpp -I.
+default: $(CC) -o converter.o main.cpp -I.
