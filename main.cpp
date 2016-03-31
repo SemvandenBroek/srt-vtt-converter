@@ -49,18 +49,39 @@ string webVttToSrt(string vtt)
 	return res2;
 }
 
+string srtToWebVtt(string srt)
+{
+	string res("WEBVTT\n\n");
+	regex r("(\\d{2}:\\d{2}:\\d{2}),(\\d{3}\\s+)-->(\\s+\\d{2}:\\d{2}:\\d{2}),(\\d{3}\\s*)");
+
+	regex_replace(back_inserter(res), srt.begin(), srt.end(), r, "$1.$2-->$3,$4");
+
+	return res;
+}
+
 int main(int argc, char *argv[])
 {
-	if (argc != 3)
+	if (argc != 4)
 	{
-		cout << "usage: " << argv[0] << " <inputfile> <outputfile>\n";
+		cout << "usage: " << argv[0] << " <input format: [vtt|srt]> <inputfile> <outputfile>\n";
 	}
 	else
 	{
-		string vtt(readFile(argv[1]));
-		if (!vtt.empty()) 
+		string in(readFile(argv[2]));
+		if (!in.empty()) 
 		{
-			writeFile(webVttToSrt(vtt), argv[2]);
+			if (string("srt").compare(argv[1]))
+			{
+				writeFile(webVttToSrt(in), argv[3]);
+			}
+			else if (string("vtt").compare(argv[1]))
+			{
+				writeFile(srtToWebVtt(in), argv[3]);
+			}
+			else
+			{
+				cout << "Please input either 'srt' or 'vtt' as first argument (found: " << argv[1] << ")";
+			}
 		}
 		else
 		{
