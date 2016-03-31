@@ -7,7 +7,7 @@ using namespace std;
 
 string readFile(string path) {
 	fstream infile;
-	infile.open(path);
+	infile.open(path, ios::in);
 
 	string line;
 	string res;
@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			cout << "Input file not found\n";
+			cout << "Input file not found\n (" << argv[2] << ")\n";
 		}
 	}
 	return 0;

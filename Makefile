@@ -1,3 +1,5 @@
-CC=gcc
+default:
+	g++ -std=c++11 -o srtconverter.o main.cpp
 
-default: $(CC) -o converter.o main.cpp -I.
+install:
+	cp srtconverter.o /usr/bin/srtconverter
